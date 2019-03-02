@@ -1,0 +1,16 @@
+{% extends '@App/base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="index.html">Dashboard</a>
+            </li>
+        </ol>
+
+        <!-- Page Content -->
+        <h2>Welcome {{ app.user.username }} !</h2>
+        <a class="btn btn-primary" href="{{ path('frontend') }}">Go to Frontend</a>
+    </div>
+{% endblock %}

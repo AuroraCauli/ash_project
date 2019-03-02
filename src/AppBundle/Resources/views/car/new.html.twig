@@ -1,0 +1,147 @@
+{% extends '@App/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets
+        '@AppBundle/Resources/public/vendor/select2/css/select2.min.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Car</li>
+        </ol>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar"></i>
+                        {% if car.id %}Edit{% else %}Create{% endif %} Car
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            <div class="row">
+                                <div class="col-4">
+                                    <p>Make</p>
+                                </div>
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            {{ form_widget(form.make, {'attr': {"class": "form-control"}}) }}
+                                            <label for="">Enter make</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <p>Model</p>
+                                </div>
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            {{ form_widget(form.model, {'attr': {"class": "form-control"}}) }}
+                                            <label for="">Enter model</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <p>Produced At</p>
+                                </div>
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            {{ form_widget(form.producedAt, {'attr': {"class": "form-control"}}) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <p>Engine Size</p>
+                                </div>
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            {{ form_widget(form.engineSize, {'attr': {"class": "form-control"}}) }}
+                                            <label for="">Enter engine size</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <p>Price</p>
+                                </div>
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            {{ form_widget(form.price, {'attr': {"class": "form-control"}}) }}
+                                            <label for="">Enter price</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <p>Active</p>
+                                </div>
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            {{ form_widget(form.isActive) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <p>Categories</p>
+                                </div>
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            {{ form_widget(form.categories, {'attr': {"class": "select2", "style": "width: 100%"}}) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-right">
+                                    <button class="btn btn-success btn-lg" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="btn btn-primary" href="{{ path('car_index') }}">Back to the list</a>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+        '@AppBundle/Resources/public/vendor/select2/js/select2.min.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+    </script>
+{% endblock %}

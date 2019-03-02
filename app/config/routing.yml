@@ -1,0 +1,17 @@
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+security_fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+registration_fos_user:
+    prefix: "/register"
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+
+fos_user_registration_confirmed:
+    path: /register/confirmed
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: "frontend"
+        permanent: true

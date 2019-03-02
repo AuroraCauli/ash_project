@@ -1,0 +1,48 @@
+{% extends '@App/base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Car Category</li>
+        </ol>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar"></i>
+                        Car Categories list
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>Id</td>
+                                    <td>Name</td>
+                                    <td>Actions</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for category in carCategories %}
+                                    <tr>
+                                        <td>{{ category.id }}</td>
+                                        <td>{{ category.name }}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="{{ path('carcategory_edit', {"id": category.id}) }}" class="btn btn-dark"><i class="fa fa-pen"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <a class="btn btn-primary" href="{{ path('carcategory_new') }}">Create category</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

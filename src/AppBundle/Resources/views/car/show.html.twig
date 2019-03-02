@@ -1,0 +1,61 @@
+{% extends '@App/base.html.twig' %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ path('car_index') }}">Cars</a>
+            </li>
+            <li class="breadcrumb-item active">{{ car.id }}</li>
+        </ol>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar"></i>
+                        Car detail
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <th>Id</th><td>{{ car.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Make</th><td>{{ car.make }}</td>
+                            </tr>
+                            <tr>
+                                <th>Model</th><td>{{ car.model }}</td>
+                            </tr>
+                            <tr>
+                                <th>Produced at</th><td>{% if car.producedAt %}{{ car.producedAt|date('Y-m-d') }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>Engine size</th><td>{{ car.engineSize }}</td>
+                            </tr>
+                            <tr>
+                                <th>Price</th><td>{{ car.price }}</td>
+                            </tr>
+                            <tr>
+                                <th>Categories</th>
+                                <td>
+                                    {% for category in car.categories %}
+                                        {{ category.name }}
+                                        {% if not loop.last %} , {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Active</th><td>{{ car.isActive?'Yes':'No'}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <a class="btn btn-default" href="{{ path('car_index') }}">Back to the list</a>
+                <a class="btn btn-primary" href="{{ path('car_edit', { 'id': car.id }) }}">Edit</a>
+                {{ form_start(delete_form) }}   <input type="submit" value="Delete" class="btn btn-danger"> {{ form_end(delete_form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

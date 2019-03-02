@@ -1,0 +1,80 @@
+{% extends "@App/frontend_base.html.twig" %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row p-3">
+                <div class="col-lg-12">
+                    <h2>Cars list</h2>
+                </div>
+            </div>
+            <form method="get" >
+            <div class="row p-3">
+                <div class="col-lg-1 ">
+                   Model:
+                </div>
+                <div class="col-lg-3 ">
+                    <input type="text" class="form-control" placeholder="Enter model" name="model" value="{{ app.request.query.get('model') }}">
+                </div>
+                <div class="col-lg-2 ">
+                    Engine size:
+                </div>
+                <div class="col-lg-3 ">
+                    <input type="text" class="form-control" placeholder="Enter engine size" name="engine_size" value="{{ app.request.query.get('engine_size') }}">
+                </div>
+                <div class="col-lg-3 text-right">
+                    <button class="btn btn-success" type="submit"><i class="fa fa-search"></i> Search</button>
+                    <a href="{{ path('frontend') }}" class="btn btn-dark"><i class="fa fa-remove"></i> Clear</a>
+                </div>
+            </div>
+            </form>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Produced at</th>
+                            <th>Engine size</th>
+                            <th>Price</th>
+                            <th>Categories</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for car in activeCars %}
+                            <tr>
+                                <td>{{ car.make }}</td>
+                                <td>{{ car.model }}</td>
+                                <td>{% if car.producedAt %}{{ car.producedAt|date('Y-m-d') }}{% endif %}</td>
+                                <td>{{ car.engineSize }}</td>
+                                <td>{{ car.price }}</td>
+                                <td>
+                                    {% for category in car.categories %}
+                                        {{ category.name }}
+                                        {% if not loop.last %} , {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% set cart_session = app.session.get('shopping_cart_items') %}
+                                    {% if cart_session[car.id] is defined %}
+                                        <a class="btn btn-dark" href="#"> Already on cart</a>
+                                    {% else %}
+                                    <a class="btn btn-success" href="{{ path('add_item', app.request.query.all() | merge({'id':car.id})) }}"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="7">No cars found!</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
