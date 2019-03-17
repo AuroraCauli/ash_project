@@ -36,7 +36,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
                         {% for id, item in app.session.get('shopping_cart_items') %}
-                            <span class="dropdown-item">{{ item }} <a href="{{ path('remove_item', app.request.query.all() | merge({'id': id})) }}" class="text-right"><i class="fa fa-trash"></i></a></span>
+                            <span class="dropdown-item">({{ item.quantity }}) {{ item.model }} <a href="{{ path('remove_item', app.request.query.all() | merge({'id': id})) }}" class="text-right"><i class="fa fa-trash"></i></a></span>
                         {% endfor %}
                         {% if app.user and app.session.get('shopping_cart_items') | length %}
                             <span class="dropdown-item"> <a class="btn btn-primary btn-sm" href="{{ path('success_buy') }}">Buy cars!</a></span>

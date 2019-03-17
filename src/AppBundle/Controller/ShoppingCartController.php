@@ -31,15 +31,15 @@ class ShoppingCartController extends Controller{
 
         $items = $session->get(self::SESSION_ID, array());
 
-        if(!isset($items[$id])){
-            $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
-            $car = $em->getRepository('AppBundle:Car')->find($id);
+        $car = $em->getRepository('AppBundle:Car')->find($id);
 
-            $items[$car->getId()]=$car->getModel();
+        !isset($items[$id])? $quantity=1 : $quantity=$items[$id]['quantity']+1;
 
-            $session->set(self::SESSION_ID, $items);
-        }
+        $items[$car->getId()]=array('model'=>$car->getModel(), 'quantity'=>$quantity);
+
+        $session->set(self::SESSION_ID, $items);
 
         return $this->redirectToRoute("frontend", $request->query->all());
     }
@@ -55,7 +55,8 @@ class ShoppingCartController extends Controller{
 
         $items = $session->get(self::SESSION_ID, array());
 
-        unset($items[$id]);
+        if($items[$id]['quantity']>1) $items[$id]['quantity']=$items[$id]['quantity']-1;
+        else unset($items[$id]);
 
         $session->set(self::SESSION_ID, $items);
 

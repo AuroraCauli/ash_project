@@ -58,11 +58,7 @@
                                 </td>
                                 <td>
                                     {% set cart_session = app.session.get('shopping_cart_items') %}
-                                    {% if cart_session[car.id] is defined %}
-                                        <a class="btn btn-dark" href="#"> Already on cart</a>
-                                    {% else %}
                                     <a class="btn btn-success" href="{{ path('add_item', app.request.query.all() | merge({'id':car.id})) }}"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    {% endif %}
                                 </td>
                             </tr>
                         {% else %}
